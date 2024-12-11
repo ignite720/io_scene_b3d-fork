@@ -201,7 +201,7 @@ def getVertexColors(obj_data):
     else:
         return obj_data.vertex_colors
 
-def getFaceImage(face):
+def getFaceImage(obj, face):
     try:
         material = obj.data.materials[face.material_index]
         texImage = material.node_tree.nodes["Image Texture"]
@@ -311,7 +311,7 @@ def write_texs(objects=[]):
                         
                         #if DEBUG: print("<uv face=", face.index, ">")
 
-                        img = getFaceImage(face)
+                        img = getFaceImage(obj, face)
                         if img:
                             if img.filepath in trimmed_paths:
                                 img_name = trimmed_paths[img.filepath]
@@ -401,7 +401,7 @@ def write_brus(objects=[]):
                         if face.index >= len(uv_textures[iuvlayer].data):
                             continue
 
-                        img = getFaceImage(face)
+                        img = getFaceImage(obj, face)
 
                         if not img:
                             continue
@@ -1254,7 +1254,7 @@ def write_node_mesh_tris(obj, data, obj_count,arm_action,exp_root):
 
                 img_id = -1
 
-                img = getFaceImage(face)
+                img = getFaceImage(obj, face)
 
                 if img:
                     if img.filepath in trimmed_paths:
